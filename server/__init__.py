@@ -1,9 +1,13 @@
 import os
+import sys
 
 from flask import (
     Flask, render_template
 )
-from ..ecosystem import Ecosystem
+
+sys.path.insert(0, './ecosystem')
+
+from ecosystem import Ecosystem
 
 
 def create_app(test_config=None):
@@ -17,7 +21,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    ecosystem = Ecosystem()
+    ecosystem = Ecosystem(1)
 
     @app.route('/')
     def root():
