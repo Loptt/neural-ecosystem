@@ -1,3 +1,13 @@
+var socket = io();
+
+socket.on('message', (msg) => {
+    console.log("Received ", msg);
+})
+
+setInterval(() => {
+    socket.emit('message', 'hola!');
+}, 500);
+
 var config = {
     type: Phaser.AUTO,
     width: 800,

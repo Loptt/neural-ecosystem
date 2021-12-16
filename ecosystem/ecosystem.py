@@ -1,3 +1,4 @@
+import json
 from organism import Organism
 
 
@@ -10,3 +11,7 @@ class Ecosystem:
 
     def step(self):
         pass
+
+    def json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
