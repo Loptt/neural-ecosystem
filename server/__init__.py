@@ -3,6 +3,7 @@ import os
 from flask import (
     Flask, render_template
 )
+from ..ecosystem import Ecosystem
 
 
 def create_app(test_config=None):
@@ -16,8 +17,10 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    @app.route('/hello')
-    def hello():
+    ecosystem = Ecosystem()
+
+    @app.route('/')
+    def root():
         return render_template('base.html')
 
     return app
