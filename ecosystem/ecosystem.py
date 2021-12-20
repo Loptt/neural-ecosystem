@@ -8,7 +8,7 @@ class Ecosystem:
     def __init__(self, number_organisms):
         self.organisms = []
         for i in range(number_organisms):
-            self.organisms.append(Organism(random.randint(0, 300), random.randint(0, 300), 15))
+            self.organisms.append(Organism(random.randint(0, 300), 100, 15))
 
     def step(self):
         pass
