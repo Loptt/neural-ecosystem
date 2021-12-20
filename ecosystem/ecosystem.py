@@ -1,4 +1,5 @@
 import json
+import random
 from organism import Organism
 
 
@@ -7,7 +8,7 @@ class Ecosystem:
     def __init__(self, number_organisms):
         self.organisms = []
         for i in range(number_organisms):
-            self.organisms.append(Organism(0, 0, 1))
+            self.organisms.append(Organism(random.randint(0, 300), random.randint(0, 300), 15))
 
     def step(self):
         pass

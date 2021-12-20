@@ -1,57 +1,38 @@
 var socket = io();
+var organisms = [];
+var stage;
+const WIDTH = 500;
+const HEIGHT = 300;
 
 socket.on('message', (msg) => {
-    console.log("Received ", msg);
+    organisms = JSON.parse(msg).organisms;
 })
 
 setInterval(() => {
     socket.emit('message', 'hola!');
 }, 500);
 
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 200 }
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create
+function init() {
+    stage = new createjs.Stage("canvas");
+    var background = new createjs.Shape();
+    background.name = "background";
+    background.graphics.beginFill("#1df56c").drawRect(0, 0, WIDTH, HEIGHT);
+    stage.addChild(background);
+    createjs.Ticker.on("tick", tick);
+    createjs.Ticker.setFPS(30);
+}
+
+function tick(event) {
+    var background = stage.getChildByName("background");
+    stage.removeAllChildren();
+    stage.addChild(background);
+    for (const org of organisms) {
+        console.log("Adding ", org);
+        let circle = new createjs.Shape();
+        circle.graphics.beginFill("DeepSkyBlue").drawCircle(org.x, org.y, org.size);
+        stage.addChild(circle);
     }
-};
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-    this.load.setBaseURL('http://labs.phaser.io');
-
-    this.load.image('sky', 'assets/skies/space3.png');
-    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');
+    stage.update(event);
 }
-
-function create ()
-{
-    this.add.image(400, 300, 'sky');
-
-    var particles = this.add.particles('red');
-
-    var emitter = particles.createEmitter({
-        speed: 100,
-        scale: { start: 1, end: 0 },
-        blendMode: 'ADD'
-    });
-
-    var logo = this.physics.add.image(400, 100, 'logo');
-
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
-
-    emitter.startFollow(logo);
-}
+init();
