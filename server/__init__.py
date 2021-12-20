@@ -1,5 +1,6 @@
 import os
 import sys
+import threading
 
 from flask import (
     Flask, render_template
@@ -23,6 +24,9 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     ecosystem = Ecosystem(5)
+    t1 = threading.Thread(target=ecosystem.run)
+
+    t1.start()
 
     @app.route('/')
     def root():

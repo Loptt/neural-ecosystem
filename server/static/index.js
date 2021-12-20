@@ -1,8 +1,8 @@
 var socket = io();
 var organisms = [];
 var stage;
-const WIDTH = 500;
-const HEIGHT = 300;
+const WIDTH = 1000;
+const HEIGHT = 1000;
 
 socket.on('message', (msg) => {
     organisms = JSON.parse(msg).organisms;
@@ -10,13 +10,13 @@ socket.on('message', (msg) => {
 
 setInterval(() => {
     socket.emit('message', 'hola!');
-}, 500);
+}, 100);
 
 function init() {
     stage = new createjs.Stage("canvas");
     var background = new createjs.Shape();
     background.name = "background";
-    background.graphics.beginFill("#1df56c").drawRect(0, 0, WIDTH, HEIGHT);
+    background.graphics.beginFill("#5ac700").drawRect(0, 0, WIDTH, HEIGHT);
     stage.addChild(background);
     createjs.Ticker.on("tick", tick);
     createjs.Ticker.setFPS(30);
@@ -29,7 +29,7 @@ function tick(event) {
     for (const org of organisms) {
         console.log("Adding ", org);
         let circle = new createjs.Shape();
-        circle.graphics.beginFill("DeepSkyBlue").drawCircle(org.x, org.y, org.size);
+        circle.graphics.beginFill("#e2e610").drawCircle(org.x, org.y, org.size);
         stage.addChild(circle);
     }
 
