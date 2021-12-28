@@ -23,7 +23,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    ecosystem = Ecosystem(5)
+    ecosystem = Ecosystem(5, 3)
     t1 = threading.Thread(target=ecosystem.run)
 
     t1.start()
