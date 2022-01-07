@@ -23,7 +23,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    ecosystem = Ecosystem(5, 3)
+    ecosystem = Ecosystem(number_organisms=5, food_amount=3, step_size=0.01)
     t1 = threading.Thread(target=ecosystem.run)
 
     t1.start()
@@ -31,7 +31,7 @@ def create_app(test_config=None):
     @app.route('/')
     def root():
         return render_template('base.html')
-    
+
     @socketio.on('message')
     def handle_message(data):
         send(str(ecosystem.json()))

@@ -51,6 +51,7 @@ function tick(event) {
     stage.removeAllChildren();
     stage.addChild(background);
     let transformedOrgs = camera.transform(organisms);
+    console.log(transformedOrgs[0])
     let transformedFoods = camera.transform(foods);
 
     for (const org of transformedOrgs) {
