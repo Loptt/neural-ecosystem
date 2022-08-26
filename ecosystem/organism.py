@@ -1,5 +1,6 @@
 import math
 import random
+import brain
 
 
 class Organism:
@@ -11,6 +12,7 @@ class Organism:
         self.hunger = 100.0
         self.thirst = 100.0
         self.alive = True
+        self.brain = brain.Brain()
 
     def step(self, size):
         # TODO: Change these to decay in function of other things (size, speed, etc.)

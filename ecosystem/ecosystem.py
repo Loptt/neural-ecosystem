@@ -44,6 +44,9 @@ class Ecosystem:
 
         self.foods = [f for f in self.foods if f.valid]
         self.organisms = [o for o in self.organisms if o.alive]
+        
+        print("Organisms: ", len(self.organisms))
+        print("Food: ", len(self.foods))
 
     def json(self):
         return json.dumps(self, default=lambda o: o.__dict__,

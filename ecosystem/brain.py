@@ -10,4 +10,5 @@ class Brain:
 	
 	def feedforward(self, perception):
 		h1 = tf.sigmoid(tf.matmul(perception, self.W1) + self.b1) 
-		y = tf.matmul(h1, self.W2)
+		y = tf.nn.relu(tf.matmul(h1, self.W2))
+		return y.numpy()
