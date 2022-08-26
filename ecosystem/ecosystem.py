@@ -25,9 +25,9 @@ class Ecosystem:
 
     def step(self):
         for org in self.organisms:
-            org.step(self.step_size)
             perceptions = []
 
+            # Check foods available of the organism
             for food in self.foods:
                 if not food.valid:
                     continue
@@ -37,7 +37,11 @@ class Ecosystem:
 
                 if org.eats_food(perception["dist"]):
                     food.valid = False
+            
+            perceptions.sort(key=lambda x: x["dist"])
+            org.step(self.step_size, perceptions)
 
+            # Check organism vitals 
             if org.hunger <= 0 or org.thirst <= 0:
                 print("Organism dead...")
                 org.alive = False

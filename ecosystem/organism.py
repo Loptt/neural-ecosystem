@@ -12,15 +12,19 @@ class Organism:
         self.hunger = 100.0
         self.thirst = 100.0
         self.alive = True
-        self.brain = brain.Brain()
+        self.brain = brain.Brain(inputs=2, outputs=2)
 
-    def step(self, size):
+    def step(self, size, perceptions):
         # TODO: Change these to decay in function of other things (size, speed, etc.)
-        self.hunger -= 0.01 * size
-        self.thirst -= 0.01 * size
+        self.hunger -= 0.06 * size
+        self.thirst -= 0.06 * size
 
-        self.x += random.uniform(-2, 2) * size
-        self.y += random.uniform(-2, 2) * size
+        result = self.brain.feedforward(perceptions)
+
+        # self.x += random.uniform(-2, 2) * size
+        # self.y += random.uniform(-2, 2) * size
+        self.x += result[0] * size
+        self.y += result[1] * size
 
     def eats_food(self, dist):
         if dist < self.size:
